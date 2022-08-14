@@ -76,8 +76,10 @@ double Iris::petalWidth() {
 	return m_petalWidth;
 }
 
-void Iris::printIris() {
-	cout << "cup length: " << m_cupLength << ", cup width: " << m_cupWidth << ", petal length: " << m_petalLength << ", petal width: " << m_petalWidth << ", type: " + m_type << endl;
+string Iris::toString() {
+	return << "cup length: " << m_cupLength << ", cup width: " << m_cupWidth
+	<< ", petal length: " << m_petalLength << ", petal width: "
+	<< m_petalWidth << ", type: " + m_type << endl;
 }
 
 string Iris::classify(Iris* irises, int k, int length, double (Iris::*distanceFunc)(Iris)) {

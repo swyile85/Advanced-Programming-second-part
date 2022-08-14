@@ -5,6 +5,8 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 #include <string.h>
+#include "FilesFunc.hpp"
+#include "Iris.hpp"
 
 using namespace std;
 

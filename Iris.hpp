@@ -112,10 +112,11 @@ public:
 	double petalWidth();
 
 	/**
-	 * @brief this func prints the data of the iris.
+	 * @brief this func returns a string of the data of the iris.
 	 * 
+	 * @return the string.
 	 */
-	void printIris();
+	string toString();
 
 	/**
 	 * @brief this func classify the iris (by KNN).
