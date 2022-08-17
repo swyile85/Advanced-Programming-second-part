@@ -112,11 +112,11 @@ public:
 	double petalWidth();
 
 	/**
-	 * @brief this func returns a string of the data of the iris.
+	 * @brief this func prints the data of the iris.
 	 * 
 	 * @return the string.
 	 */
-	string toString();
+	string printIris();
 
 	/**
 	 * @brief this func classify the iris (by KNN).
@@ -154,7 +154,9 @@ public:
 	 * @param checking (the other iris).
 	 * @return double (the chebyshev distance).
 	 */
-	double chebyshevDistance(Iris checking);  
+	double chebyshevDistance(Iris checking);
+
+	static Iris* stringToIrises(string data)ף
 };
 
 #endif // IRIS

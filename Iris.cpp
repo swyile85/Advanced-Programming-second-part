@@ -56,6 +56,25 @@ void Iris::setWithString(string data, char comma)
 	m_type = data.substr(j, i - j);
 }
 
+static Iris* Iris::stringToIrises(string data) {
+	int i, j = 0, counter = 1;
+	const char comma = ' ';
+	while (i = data.find(comma, j) != 0) {
+		counter++;
+		j = i + 1;
+	}
+	Iris* irises = new Iris[counter];
+	j = 0;
+	counter = 0;
+	while (i = data.find(comma, j) != 0) {
+		irises[0].setWithString(data.substr(j, i - j), ',');
+		counter++;
+		j = i + 1;
+	}
+	irises[counter].setWithString(data.substr(j, -1), ',');
+	return irises;
+}
+
 string Iris::type() {
 	return m_type;
 }
@@ -76,8 +95,8 @@ double Iris::petalWidth() {
 	return m_petalWidth;
 }
 
-string Iris::toString() {
-	return << "cup length: " << m_cupLength << ", cup width: " << m_cupWidth
+string Iris::printIris() {
+	cout << "cup length: " << m_cupLength << ", cup width: " << m_cupWidth
 	<< ", petal length: " << m_petalLength << ", petal width: "
 	<< m_petalWidth << ", type: " + m_type << endl;
 }
