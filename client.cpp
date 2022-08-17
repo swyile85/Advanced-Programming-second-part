@@ -10,8 +10,9 @@
 
 using namespace std;
 
-int main(int argc, char** argv) {
-    const string inputFile = argv[1], outputFile = argv[2];
+int main() {
+    cout << "CLIENT" << endl;
+    const string inputFile = "Unclassified.csv", outputFile = "output.csv";
     const char* ip_address = "127.0.0.1";
     const int port_no = 5555;
 
@@ -28,9 +29,10 @@ int main(int argc, char** argv) {
         perror("error connecting to server");
     }
 
-    char data_addr[] = fileToString(inputFile);
-    int data_len = strlen(data_addr);
-    int sent_bytes = send(sock, data_addr, data_len, 0);
+    string data = fileToString(inputFile);
+    int data_len = data.length();
+    cout << "sending to the server..." << endl;
+    int sent_bytes = send(sock, data.c_str(), data_len, 0);
 
     if (sent_bytes < 0) {
         perror("error");
@@ -39,6 +41,7 @@ int main(int argc, char** argv) {
     char buffer[4096];
     int expected_data_len = sizeof(buffer);
     int read_bytes = recv(sock, buffer, expected_data_len, 0);
+    cout << "received it";
     if (read_bytes == 0) {
         perror("error");
     }
@@ -46,11 +49,11 @@ int main(int argc, char** argv) {
         perror("error");
     }
     else {
-        typesToFile(buffer, outputFile);
+        typesToFile(string(buffer), outputFile);
+        cout << "thank you";
     }
 
     close(sock);
-
 
     return 0;
 }

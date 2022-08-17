@@ -11,7 +11,10 @@
 using namespace std;
 
 int main() {
-
+    cout << "SERVER" << endl;
+    string classifiedFile = "classified.csv";
+    Iris* classified = readFile(classifiedFile);
+    int numOfClassified = lengthOfFile(classifiedFile);
     const int server_port = 5555;
 
     int sock = socket(AF_INET, SOCK_STREAM, 0);
@@ -51,14 +54,26 @@ int main() {
         perror("error");
     }
     else {
-        cout << buffer;
+        cout << buffer << endl;
+        cout << "Classify..." << endl;
+        int counter;
+        string types = "";
+        Iris* unClassified = Iris::stringToIrises(string(buffer), counter);
+        for (int i = 0; i < counter; i++) {
+            types += unClassified[i].classify(classified, 5, numOfClassified,
+            &Iris::euclideanDistance);
+            types += " ";   
+        }
+        cout << "classified successfully!" << endl;
+        int length = types.length();
+        int sent_bytes = send(client_sock, types.c_str(), length, 0);
+        cout << "sent it back to the client" << endl;
+        if (sent_bytes < 0) {
+            perror("error sending to client");
+        }
     }
 
-    int sent_bytes = send(client_sock, buffer, read_bytes, 0);
 
-    if (sent_bytes < 0) {
-        perror("error sending to client");
-    }
 
     close(sock);
 

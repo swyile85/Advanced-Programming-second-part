@@ -49,18 +49,16 @@ void toFile(string fileName, double(Iris::* distanceFunc)(Iris),
 
 string fileToString(string fileName) {
     string str;
-    string irisesString = "";
     ifstream inputFile(fileName);
     if (inputFile.eof()) {
-        return irisesString;
+        return "";
     }
     getline(inputFile, str);
-    irisesString = irisesString.append(str);
-    while (!inputFile.eof()) {
-        getline(inputFile, str);
+    string irisesString = str;
+    while (getline(inputFile, str)) {
         if (!str.empty()) {
-            irisesString = irisesString.append(" ");
-            irisesString = irisesString.append(str);
+            irisesString += " ";
+            irisesString += str;
         }
     }
     inputFile.close();
@@ -72,8 +70,8 @@ void typesToFile(string types, string fileName) {
     output.open(fileName);
     int i, j = 0, counter = 0;
 	const char comma = ' ';
-	while ((i = data.find(comma, j)) != -1) {
-        output << data.substr(j, i - j) << endl;
+	while ((i = types.find(comma, j)) != -1) {
+        output << types.substr(j, i - j) << endl;
         counter++;
 	}
     output.close();

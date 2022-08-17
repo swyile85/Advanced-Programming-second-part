@@ -116,7 +116,7 @@ public:
 	 * 
 	 * @return the string.
 	 */
-	string printIris();
+	void printIris();
 
 	/**
 	 * @brief this func classify the iris (by KNN).
@@ -156,7 +156,7 @@ public:
 	 */
 	double chebyshevDistance(Iris checking);
 
-	static Iris* stringToIrises(string data);
+	static Iris* stringToIrises(string data, int &counter);
 };
 
 #endif // IRIS

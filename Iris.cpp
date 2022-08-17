@@ -56,8 +56,9 @@ void Iris::setWithString(string data, char comma)
 	m_type = data.substr(j, i - j);
 }
 
-Iris* Iris::stringToIrises(string data) {
-	int i, j = 0, counter = 1;
+Iris* Iris::stringToIrises(string data, int &counter) {
+	int i, j = 0;
+	counter = 1;
 	char comma = ' ';
 	while ((i = data.find(comma, j)) != -1) {
 		counter++;
@@ -95,10 +96,11 @@ double Iris::petalWidth() {
 	return m_petalWidth;
 }
 
-string Iris::printIris() {
+void Iris::printIris() {
 	cout << "cup length: " << m_cupLength << ", cup width: " << m_cupWidth
 		<< ", petal length: " << m_petalLength << ", petal width: "
 		<< m_petalWidth << ", type: " + m_type << endl;
+	return;
 }
 
 string Iris::classify(Iris* irises, int k, int length, double (Iris::* distanceFunc)(Iris)) {
