@@ -155,7 +155,13 @@ public:
 	 * @return double (the chebyshev distance).
 	 */
 	double chebyshevDistance(Iris checking);
-
+	/**
+	 * @brief The function turns a string of irises to an array of irises.
+	 * 
+	 * @param data The string of irises.
+	 * @param counter The amount of irises.
+	 * @return Iris* The array of irises returned.
+	 */
 	static Iris* stringToIrises(string data, int &counter);
 };
 

@@ -9,10 +9,15 @@
 #include "Iris.hpp"
 
 using namespace std;
-
+/**
+ * @brief The main is responsible for the server operation.
+ * 
+ * @return int The return value.
+ */
 int main() {
     cout << "SERVER" << endl;
     string classifiedFile = "classified.csv";
+    // The path to the data about the classified irises.
     Iris* classified = readFile(classifiedFile);
     int numOfClassified = lengthOfFile(classifiedFile);
     const int server_port = 5555;
@@ -55,29 +60,26 @@ int main() {
         perror("error");
     }
     else {
-        cout << buffer << endl;
+        // creating a string of types based on classified.
         cout << "Classify..." << endl;
         int counter;
         Iris* unClassified = Iris::stringToIrises(string(buffer), counter);
-        cout << counter << endl;
         for (int i = 0; i < counter; i++) {
-            unClassified[i].printIris();
             types += unClassified[i].classify(classified, 5, numOfClassified,
             &Iris::euclideanDistance);
             types += " ";
-            cout << types << endl;   
         }
+        delete[] unClassified;
         cout << "classified successfully!" << endl;
     }
     int length = types.length();
-    cout << length << endl;
     int sent_bytes = send(client_sock, types.c_str(), length, 0);
     cout << "sent it back to the client" << endl;
     if (sent_bytes < 0) {
         perror("error sending to client");
     }
 
-
+    delete[] classified;
 
     close(sock);
 

@@ -47,25 +47,6 @@ void toFile(string fileName, double(Iris::* distanceFunc)(Iris),
     output.close();
 }
 
-/*string fileToString(string fileName) {
-    string str;
-    ifstream inputFile(fileName);
-    if (inputFile.eof()) {
-        return "";
-    }
-    getline(inputFile, str);
-    string irisesString = "";
-    irisesString += str;
-    while (getline(inputFile, str)) {
-        if (!str.empty()) {
-            irisesString += " ";
-            irisesString += str;
-        }
-    }
-    inputFile.close();
-    return irisesString;
-}*/
-
 string fileToString(string fileName) {
     string str;
     string irisesToReturn = "";

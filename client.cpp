@@ -9,10 +9,16 @@
 #include "Iris.hpp"
 
 using namespace std;
-
-int main() {
+/**
+ * @brief The main function is responsible for the operating of the client.
+ * 
+ * @param argc The number of arguments.
+ * @param argv The arguments.
+ * @return int The return value.
+ */
+int main(int argc, char** argv) {
     cout << "CLIENT" << endl;
-    const string inputFile = "Unclassified.csv", outputFile = "output.csv";
+    const string inputFile = argv[1], outputFile = argv[2];
     const char* ip_address = "127.0.0.1";
     const int port_no = 5555;
 
@@ -50,7 +56,7 @@ int main() {
     }
     else {
         typesToFile(string(buffer), outputFile);
-        cout << "thank you";
+        cout << "thank you" << endl;
     }
 
     close(sock);

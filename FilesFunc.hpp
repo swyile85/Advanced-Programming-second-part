@@ -44,8 +44,18 @@ Iris* readFile(string fileName);
 void toFile(string fileName, double(Iris::* distanceFunc)(Iris),
     Iris* classifiedIrises, int numOfClassified, Iris* unClassifiedIrises,
     int numOfUnClassified, int k);
-
+/**
+ * @brief The function turns a file to a string by its data.
+ * 
+ * @param fileName The file name.
+ * @return string The string that is the output of the funtion.
+ */
 string fileToString(string fileName);
-
+/**
+ * @brief The function turns string of types to a file.
+ * 
+ * @param types The string of types.
+ * @param fileName The name of the file.
+ */
 void typesToFile(string types, string fileName);
 #endif // FilesFunc
