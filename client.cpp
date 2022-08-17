@@ -41,7 +41,7 @@ int main() {
     char buffer[4096];
     int expected_data_len = sizeof(buffer);
     int read_bytes = recv(sock, buffer, expected_data_len, 0);
-    cout << "received it";
+    cout << "received it" << endl;
     if (read_bytes == 0) {
         perror("error");
     }

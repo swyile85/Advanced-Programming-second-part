@@ -100,6 +100,7 @@ void typesToFile(string types, string fileName) {
 	while ((i = types.find(comma, j)) != -1) {
         output << types.substr(j, i - j) << endl;
         counter++;
+        j = i + 1;
 	}
     output.close();
 }
