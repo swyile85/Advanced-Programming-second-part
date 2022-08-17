@@ -33,7 +33,7 @@ int main() {
     int data_len = data.length();
     cout << "sending to the server..." << endl;
     int sent_bytes = send(sock, data.c_str(), data_len, 0);
-
+    cout << "been sent" << endl;
     if (sent_bytes < 0) {
         perror("error");
     }
