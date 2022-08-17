@@ -68,11 +68,11 @@ Iris* Iris::stringToIrises(string data, int &counter) {
 	j = 0;
 	counter = 0;
 	while ((i = data.find(comma, j)) != -1) {
-		irises[0].setWithString(data.substr(j, i - j), ',');
+		irises[counter].setWithString(data.substr(j, i - j), ',');
 		counter++;
 		j = i + 1;
 	}
-	irises[counter].setWithString(data.substr(j), ',');
+	irises[counter++].setWithString(data.substr(j), ',');
 	return irises;
 }
 

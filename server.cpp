@@ -47,6 +47,7 @@ int main() {
     char buffer[4096];
     int expected_data_len = sizeof(buffer);
     int read_bytes = recv(client_sock, buffer, expected_data_len, 0);
+    string types = "";
     if (read_bytes == 0) {
         close(client_sock);
     }
@@ -57,20 +58,23 @@ int main() {
         cout << buffer << endl;
         cout << "Classify..." << endl;
         int counter;
-        string types = "";
         Iris* unClassified = Iris::stringToIrises(string(buffer), counter);
+        cout << counter << endl;
         for (int i = 0; i < counter; i++) {
+            unClassified[i].printIris();
             types += unClassified[i].classify(classified, 5, numOfClassified,
             &Iris::euclideanDistance);
-            types += " ";   
+            types += " ";
+            cout << types << endl;   
         }
         cout << "classified successfully!" << endl;
-        int length = types.length();
-        int sent_bytes = send(client_sock, types.c_str(), length, 0);
-        cout << "sent it back to the client" << endl;
-        if (sent_bytes < 0) {
-            perror("error sending to client");
-        }
+    }
+    int length = types.length();
+    cout << length << endl;
+    int sent_bytes = send(client_sock, types.c_str(), length, 0);
+    cout << "sent it back to the client" << endl;
+    if (sent_bytes < 0) {
+        perror("error sending to client");
     }
 
 

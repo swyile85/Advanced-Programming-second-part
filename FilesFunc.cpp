@@ -47,14 +47,15 @@ void toFile(string fileName, double(Iris::* distanceFunc)(Iris),
     output.close();
 }
 
-string fileToString(string fileName) {
+/*string fileToString(string fileName) {
     string str;
     ifstream inputFile(fileName);
     if (inputFile.eof()) {
         return "";
     }
     getline(inputFile, str);
-    string irisesString = str;
+    string irisesString = "";
+    irisesString += str;
     while (getline(inputFile, str)) {
         if (!str.empty()) {
             irisesString += " ";
@@ -63,8 +64,34 @@ string fileToString(string fileName) {
     }
     inputFile.close();
     return irisesString;
-}
+}*/
 
+string fileToString(string fileName) {
+    string str;
+    string irisesToReturn = "";
+    ifstream input(fileName);
+    getline(input, str);
+    int i = str.find('\r');
+    if (i != -1) {
+        irisesToReturn += str.substr(0, i);
+    } else {
+        irisesToReturn += str;
+    }
+    while (!input.eof()) {
+        getline(input, str);
+        if (!str.empty()) {
+            irisesToReturn += " ";
+            i = str.find('\r');
+            if (i != -1) {
+                irisesToReturn += str.substr(0, i);
+            } else {
+                irisesToReturn += str;
+            }
+        }    
+    }
+    input.close();
+    return irisesToReturn;
+}
 void typesToFile(string types, string fileName) {
     ofstream output;
     output.open(fileName);
