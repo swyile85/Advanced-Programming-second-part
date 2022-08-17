@@ -61,3 +61,17 @@ string fileToString(string fileName) {
     inputFile.close();
     return irisesString;
 }
+
+void typesToFile(string types, string fileName, Iris* unClassified) {
+    ofstream output;
+    output.open(fileName);
+    int i, j = 0, counter = 0;
+	const char comma = ' ';
+	while (i = data.find(comma, j) != 0) {
+		irises[counter].setType(data.substr(j, i - j));
+		j = i + 1;
+        output << irises[counter] << endl;
+        counter++;
+	}
+    output.close();
+}
