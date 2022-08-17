@@ -10,7 +10,7 @@
 
 using namespace std;
 
-int main() {
+int main(int argc, char** argv) {
 
     const char* ip_address = "127.0.0.1";
     const int port_no = 5555;
@@ -28,7 +28,7 @@ int main() {
         perror("error connecting to server");
     }
 
-    char data_addr[] = "Im a message";
+    char data_addr[] = fileToString(argv[0]);
     int data_len = strlen(data_addr);
     int sent_bytes = send(sock, data_addr, data_len, 0);
 
@@ -46,7 +46,7 @@ int main() {
         perror("error");
     }
     else {
-        cout << buffer;
+        typesToFile(buffer, argv[1], readFile(argv[0]));
     }
 
     close(sock);

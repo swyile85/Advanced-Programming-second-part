@@ -45,10 +45,10 @@ int main() {
     int expected_data_len = sizeof(buffer);
     int read_bytes = recv(client_sock, buffer, expected_data_len, 0);
     if (read_bytes == 0) {
-    // connection is closed
+        close(client_sock);
     }
     else if (read_bytes < 0) {
-    // error
+        perror("error");
     }
     else {
         cout << buffer;
