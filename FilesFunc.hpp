@@ -47,5 +47,5 @@ void toFile(string fileName, double(Iris::* distanceFunc)(Iris),
 
 string fileToString(string fileName);
 
-void typesToFile(string types, string fileName, Iris* unClassified);
+void typesToFile(string types, string fileName);
 #endif // FilesFunc

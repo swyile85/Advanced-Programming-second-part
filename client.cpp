@@ -11,7 +11,7 @@
 using namespace std;
 
 int main(int argc, char** argv) {
-
+    const string inputFile = argv[1], outputFile = argv[2];
     const char* ip_address = "127.0.0.1";
     const int port_no = 5555;
 
@@ -28,7 +28,7 @@ int main(int argc, char** argv) {
         perror("error connecting to server");
     }
 
-    char data_addr[] = fileToString(argv[0]);
+    char data_addr[] = fileToString(inputFile);
     int data_len = strlen(data_addr);
     int sent_bytes = send(sock, data_addr, data_len, 0);
 
@@ -46,7 +46,7 @@ int main(int argc, char** argv) {
         perror("error");
     }
     else {
-        typesToFile(buffer, argv[1], readFile(argv[0]));
+        typesToFile(buffer, outputFile);
     }
 
     close(sock);

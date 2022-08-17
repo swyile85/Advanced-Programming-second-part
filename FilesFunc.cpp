@@ -51,26 +51,29 @@ string fileToString(string fileName) {
     string str;
     string irisesString = "";
     ifstream inputFile(fileName);
+    if (inputFile.eof()) {
+        return irisesString;
+    }
+    getline(inputFile, str);
+    irisesString = irisesString.append(str);
     while (!inputFile.eof()) {
         getline(inputFile, str);
         if (!str.empty()) {
-            irisesString = irisesString.append(str);
             irisesString = irisesString.append(" ");
+            irisesString = irisesString.append(str);
         }
     }
     inputFile.close();
     return irisesString;
 }
 
-void typesToFile(string types, string fileName, Iris* unClassified) {
+void typesToFile(string types, string fileName) {
     ofstream output;
     output.open(fileName);
     int i, j = 0, counter = 0;
 	const char comma = ' ';
-	while (i = data.find(comma, j) != 0) {
-		irises[counter].setType(data.substr(j, i - j));
-		j = i + 1;
-        output << irises[counter] << endl;
+	while ((i = data.find(comma, j)) != -1) {
+        output << data.substr(j, i - j) << endl;
         counter++;
 	}
     output.close();
