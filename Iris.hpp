@@ -156,7 +156,7 @@ public:
 	 */
 	double chebyshevDistance(Iris checking);
 
-	static Iris* stringToIrises(string data)ף
+	static Iris* stringToIrises(string data);
 };
 
 #endif // IRIS

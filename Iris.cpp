@@ -56,22 +56,22 @@ void Iris::setWithString(string data, char comma)
 	m_type = data.substr(j, i - j);
 }
 
-static Iris* Iris::stringToIrises(string data) {
+Iris* Iris::stringToIrises(string data) {
 	int i, j = 0, counter = 1;
-	const char comma = ' ';
-	while (i = data.find(comma, j) != 0) {
+	char comma = ' ';
+	while ((i = data.find(comma, j)) != -1) {
 		counter++;
 		j = i + 1;
 	}
 	Iris* irises = new Iris[counter];
 	j = 0;
 	counter = 0;
-	while (i = data.find(comma, j) != 0) {
+	while ((i = data.find(comma, j)) != -1) {
 		irises[0].setWithString(data.substr(j, i - j), ',');
 		counter++;
 		j = i + 1;
 	}
-	irises[counter].setWithString(data.substr(j, -1), ',');
+	irises[counter].setWithString(data.substr(j), ',');
 	return irises;
 }
 
@@ -97,11 +97,11 @@ double Iris::petalWidth() {
 
 string Iris::printIris() {
 	cout << "cup length: " << m_cupLength << ", cup width: " << m_cupWidth
-	<< ", petal length: " << m_petalLength << ", petal width: "
-	<< m_petalWidth << ", type: " + m_type << endl;
+		<< ", petal length: " << m_petalLength << ", petal width: "
+		<< m_petalWidth << ", type: " + m_type << endl;
 }
 
-string Iris::classify(Iris* irises, int k, int length, double (Iris::*distanceFunc)(Iris)) {
+string Iris::classify(Iris* irises, int k, int length, double (Iris::* distanceFunc)(Iris)) {
 	double* distances = new double[length];
 	int* amountOfType = new int[3];
 	for (int m = 0; m < 3; m++) {
@@ -118,7 +118,7 @@ string Iris::classify(Iris* irises, int k, int length, double (Iris::*distanceFu
 	}
 	/*
 	* This loop is in charge of counting the number of each type of the closest k Irises.
-	* It has an array that is responsible for the indexes already chosen and it checks for 
+	* It has an array that is responsible for the indexes already chosen and it checks for
 	  all of the distances who is the shortest out of the indexes that was not chosen.
 	*/
 	for (int m = 0; m < k; m++) {
@@ -155,10 +155,12 @@ string Iris::classify(Iris* irises, int k, int length, double (Iris::*distanceFu
 	if ((amountOfType[0] > amountOfType[1]) && (amountOfType[0] > amountOfType[2])) {
 		delete[] amountOfType;
 		return "Iris-setosa";
-	} else if ((amountOfType[1] > amountOfType[0]) && (amountOfType[1] > amountOfType[2])) {
+	}
+	else if ((amountOfType[1] > amountOfType[0]) && (amountOfType[1] > amountOfType[2])) {
 		delete[] amountOfType;
 		return "Iris-virginica";
-	} else if ((amountOfType[2] > amountOfType[1]) && (amountOfType[2] > amountOfType[0])) {
+	}
+	else if ((amountOfType[2] > amountOfType[1]) && (amountOfType[2] > amountOfType[0])) {
 		delete[] amountOfType;
 		return "Iris-versicolor";
 	}
@@ -171,27 +173,27 @@ void Iris::setType(string type) {
 }
 
 double Iris::euclideanDistance(Iris checking) {
-    double dx = pow((this->cupLength() - checking.cupLength()), 2);
-    double dy = pow((this->cupWidth() - checking.cupWidth()), 2);
-    double dz = pow((this->petalWidth() - checking.petalWidth()), 2);
-    double dw = pow((this->petalLength() - checking.petalLength()), 2);
-    return sqrt(dx + dy  + dz + dw);
+	double dx = pow((this->cupLength() - checking.cupLength()), 2);
+	double dy = pow((this->cupWidth() - checking.cupWidth()), 2);
+	double dz = pow((this->petalWidth() - checking.petalWidth()), 2);
+	double dw = pow((this->petalLength() - checking.petalLength()), 2);
+	return sqrt(dx + dy + dz + dw);
 }
 
 double Iris::manhattanDistance(Iris checking) {
-    double dx = abs(this->cupLength() - checking.cupLength());
-    double dy = abs(this->cupWidth() - checking.cupWidth());
-    double dz = abs(this->petalWidth() - checking.petalWidth());
-    double dw = abs(this->petalLength() - checking.petalLength());
-    return dx + dy  + dz + dw; 
+	double dx = abs(this->cupLength() - checking.cupLength());
+	double dy = abs(this->cupWidth() - checking.cupWidth());
+	double dz = abs(this->petalWidth() - checking.petalWidth());
+	double dw = abs(this->petalLength() - checking.petalLength());
+	return dx + dy + dz + dw;
 }
 
 double Iris::chebyshevDistance(Iris checking) {
-    double dx = abs(this->cupLength() - checking.cupLength());
-    double dy = abs(this->cupWidth() - checking.cupWidth());
-    double dz = abs(this->petalWidth() - checking.petalWidth());
-    double dw = abs(this->petalLength() - checking.petalLength());
-    double maxXY = max(dx, dy);   
-    double maxZW = max(dz, dw);
-    return max(maxXY, maxZW);
+	double dx = abs(this->cupLength() - checking.cupLength());
+	double dy = abs(this->cupWidth() - checking.cupWidth());
+	double dz = abs(this->petalWidth() - checking.petalWidth());
+	double dw = abs(this->petalLength() - checking.petalLength());
+	double maxXY = max(dx, dy);
+	double maxZW = max(dz, dw);
+	return max(maxXY, maxZW);
 }
