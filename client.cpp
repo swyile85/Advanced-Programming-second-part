@@ -16,9 +16,7 @@ int main() {
     const int port_no = 5555;
 
     int sock = socket(AF_INET, SOCK_STREAM, 0);
-    if (sock < 0) {
-        perror("error creating socket");
-    }
+    if (sock < 0) { perror("error creating socket"); }
 
     struct sockaddr_in sin;
     memset(&sin, 0, sizeof(sin));
@@ -35,17 +33,17 @@ int main() {
     int sent_bytes = send(sock, data_addr, data_len, 0);
 
     if (sent_bytes < 0) {
-    // error
+        perror("error");
     }
 
     char buffer[4096];
     int expected_data_len = sizeof(buffer);
     int read_bytes = recv(sock, buffer, expected_data_len, 0);
     if (read_bytes == 0) {
-    // connection is closed
+        perror("error");
     }
     else if (read_bytes < 0) {
-    // error
+        perror("error");
     }
     else {
         cout << buffer;
